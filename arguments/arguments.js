@@ -15,28 +15,45 @@ const sum2 = (...nums) => {
   return result;
 };
 
-
-// // simple myBind with no args
-// Function.prototype.myBind = function (ctx) {
-//   return () => this.apply(ctx);
-// };
-
-// myBind with arguments
-Function.prototype.myBind = function (ctx, ...bindArgs) {
-  return (...callArgs) => {
-    return this.apply(ctx, bindArgs.concat(callArgs));
+Function.prototype.myBind = function () {
+  let ctx = arguments[0];
+  const func = this; 
+  let bindArgs = Array.from(arguments).slice(1);
+  
+  return function innerFunc (...callArgs) {
+      func.apply(ctx, bindArgs.concat(callArgs));
+    }; 
   };
-};
+  
+  Function.prototype.myBind2 = function (ctx, ...bindArgs) {
+    let ctx2 = ctx;
+    const func = this; 
+    let bindArgs2 = Array.from(arguments).slice(1);
+    
+    return function innerFunc (...callArgs) {
+      func.apply(ctx, bindArgs.concat(callArgs));
+    }; 
+  };
 
-class Cat {
-  constructor(name) {
-    this.name = name;
+    class Cat {
+    constructor(name) {
+      this.name = name;
+    }
+
+    says(sound, person) {
+      console.log(`${this.name} says ${sound} to ${person}!`);
+      return true;
+    }
   }
 
-  meow() {
-    console.log(`${this.name} says meow!`);
+  class Dog {
+    constructor(name) {
+      this.name = name;
+    }
   }
-}
 
-const curie = new Cat("Curie");
-setTimeout(curie.meow.myBind(curie), 1000);
+  const markov = new Cat("Markov");
+  const pavlov = new Dog("Pavlov");
+  
+console.log(markov.says.myBind(pavlov, "meow", "Kush")());
+
