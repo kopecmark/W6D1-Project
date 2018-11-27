@@ -15,7 +15,7 @@ const sum2 = (...nums) => {
   return result;
 };
 
-Function.prototype.myBind = function () {
+Function.prototype.myBind = function () { // uses the arguments Array-like object
   let ctx = arguments[0];
   const func = this; 
   let bindArgs = Array.from(arguments).slice(1);
@@ -25,7 +25,7 @@ Function.prototype.myBind = function () {
     }; 
   };
   
-  Function.prototype.myBind2 = function (ctx, ...bindArgs) {
+Function.prototype.myBind2 = function (ctx, ...bindArgs) { // uses the rest operator
     let ctx2 = ctx;
     const func = this; 
     let bindArgs2 = Array.from(arguments).slice(1);
@@ -35,25 +35,28 @@ Function.prototype.myBind = function () {
     }; 
   };
 
-    class Cat {
-    constructor(name) {
-      this.name = name;
-    }
-
-    says(sound, person) {
-      console.log(`${this.name} says ${sound} to ${person}!`);
-      return true;
-    }
-  }
-
-  class Dog {
-    constructor(name) {
-      this.name = name;
-    }
-  }
-
-  const markov = new Cat("Markov");
-  const pavlov = new Dog("Pavlov");
+  const CurriedSum = (numArgs) => {
+    let numbers = [];
+    
+    const _curriedSum = (num) => {
+      numbers.push(num);
+      
+      if (numbers.length === numArgs) {
+        let sum = 0;
+        numbers.forEach((n) => {sum += numbers[n]})
+          sum += numbers[i];
+        }
+        return sum;
+      } 
+      else 
+      {return _curriedSum;}
+    };
+    return _curriedSum;
+  };
   
-console.log(markov.says.myBind(pavlov, "meow", "Kush")());
-
+  let result1 = CurriedSum(4);
+  result1 = CurriedSum(5);
+  result1 = CurriedSum(1);
+  result1 = CurriedSum(1);
+  result1 = CurriedSum(1);
+  console.log(result1);
