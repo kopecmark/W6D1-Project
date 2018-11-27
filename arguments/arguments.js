@@ -52,12 +52,19 @@ const curriedSum = (numArgs) => {
   return _curriedSum;
 };
 
-let result1 = curriedSum(3);
-result1 = result1(3);
-result1 = result1(4);
-result1 = result1(5);
-console.log(result1);
+Function.prototype.curry = (numArgs) => {
+  let args = [];
+  const _curried = (num) => {
+    args.push(num);
+      
+    if (args.length === numArgs) {
+      args.forEach((n) => func(n));
+      return this.apply(null,args);
+    } else {
+      return _curried;
+    }
+  };
+  return _curried;
+};
 
-// Function.prototype.curry = (numArgs) => {
-// 
-// }
+
