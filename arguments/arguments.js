@@ -35,28 +35,21 @@ Function.prototype.myBind2 = function (ctx, ...bindArgs) { // uses the rest oper
     }; 
   };
 
-  const CurriedSum = (numArgs) => {
-    let numbers = [];
-    
-    const _curriedSum = (num) => {
-      numbers.push(num);
-      
-      if (numbers.length === numArgs) {
-        let sum = 0;
-        numbers.forEach((n) => {sum += numbers[n]})
-          sum += numbers[i];
-        }
-        return sum;
-      } 
-      else 
-      {return _curriedSum;}
-    };
-    return _curriedSum;
-  };
+const CurriedSum = (numArgs) => {
+  numbers.push(num);
   
-  let result1 = CurriedSum(4);
-  result1 = CurriedSum(5);
-  result1 = CurriedSum(1);
-  result1 = CurriedSum(1);
-  result1 = CurriedSum(1);
-  console.log(result1);
+  const _curriedSum = (num) => {
+    let numbers = [];
+      
+    if (numbers.length === numArgs) {
+      let sum = 0;
+      numbers.forEach((n) => sum += n);
+      return sum;
+    } else {
+      console.log(numbers);
+      return _curriedSum;
+    }
+  };
+  return _curriedSum;
+};
+
